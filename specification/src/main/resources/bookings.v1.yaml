@@ -1,0 +1,508 @@
+openapi: 3.0.0
+info:
+  title: bookings
+  version: '1.0'
+servers:
+  - url: 'http://localhost:8080'
+    description: Localhost 8080
+paths:
+  /hotels:
+    get:
+      summary: Get all the hotels
+      tags:
+        - hotels
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HotelListResponse'
+      operationId: get-hotels
+      description: Get list of Hotels
+      parameters:
+        - schema:
+            $ref: '#/components/schemas/Pageable'
+          in: query
+          name: pageable
+    post:
+      summary: Add new hotel
+      tags:
+        - hotels
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HotelRequestResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      operationId: post-hotels
+      description: Add new hotel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HotelRequestResponse'
+        description: ''
+      parameters:
+        - schema:
+            type: string
+            default: ' application/json'
+          in: header
+          description: ''
+          name: Content-type
+  '/hotels/{hotelId}':
+    parameters:
+      - schema:
+          type: string
+        name: hotelId
+        in: path
+        required: true
+    get:
+      summary: Get Hotel by hotel Id
+      tags:
+        - hotels
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HotelRequestResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      operationId: get-hotels-hotelId
+      description: Get Hotel by hotelId
+      parameters:
+        - schema:
+            type: string
+            default: ' application/json'
+          in: header
+          name: Content-type
+    put:
+      summary: Update Hotel
+      tags:
+        - hotels
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HotelRequestResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      operationId: put-hotels-hotelId
+      description: Update Hotel by HotelId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HotelRequestResponse'
+        description: ''
+      parameters:
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-type
+    delete:
+      summary: Delete Hotel
+      tags:
+        - hotels
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      operationId: delete-hotels-hotelId
+      description: Delete Hotel by HotelId
+      parameters:
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-type
+  /rooms:
+    parameters: []
+    get:
+      summary: Get all the rooms by hotel Id
+      tags:
+        - rooms
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomListResponse'
+      operationId: get-hotels-hotelId-rooms
+      description: Get all Rooms by HotelId
+      parameters:
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-type
+    post:
+      summary: Add room to the Hotel by Hotel Id
+      tags:
+        - rooms
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomRequestResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      operationId: post-hotels-hotelId-rooms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoomRequestResponse'
+      description: Add Room to Hotel
+      parameters:
+        - schema:
+            type: string
+            default: ' application/json'
+          in: header
+          name: Content-type
+  '/rooms/{roomId}':
+    parameters:
+      - schema:
+          type: string
+        name: roomId
+        in: path
+        required: true
+    get:
+      summary: Get Room by Id
+      tags:
+        - rooms
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomRequestResponse'
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      operationId: get-hotels-hotelId-rooms-roomId
+      description: Get Room by Room Id
+      parameters:
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-type
+    put:
+      summary: update Room by Id
+      tags:
+        - rooms
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomRequestResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      operationId: put-hotels-hotelId-rooms-roomId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoomRequestResponse'
+        description: ''
+      description: Update Room by Room Id
+      parameters:
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-type
+    delete:
+      summary: Delete Room by Id
+      tags:
+        - rooms
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      operationId: delete-hotels-hotelId-rooms-roomId
+      description: Delete Room by Room Id
+      parameters:
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-type
+  /reservations:
+    post:
+      summary: Request for Hotel reservation
+      tags:
+        - reservation
+      operationId: post-reservations
+      description: Request for Hotel reservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationRequestResponse'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservationRequestResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      parameters:
+        - schema:
+            type: string
+            default: application/json
+          in: header
+          name: Content-type
+components:
+  schemas:
+    HotelRequestResponse:
+      title: HotelRequestResponse
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          minLength: 4
+          maxLength: 50
+        location:
+          type: string
+          minLength: 4
+          maxLength: 50
+      required:
+        - name
+        - location
+    HotelListResponse:
+      title: HotelListResponse
+      x-tags:
+        - hotels
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/HotelRequestResponse'
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+    Pageable:
+      title: Pageable
+      type: object
+      x-tags:
+        - hotels
+        - rooms
+      properties:
+        sort:
+          $ref: '#/components/schemas/Sort'
+        offset:
+          type: integer
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        unpaged:
+          type: boolean
+        paged:
+          type: boolean
+    Sort:
+      title: Sort
+      type: object
+      properties:
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+    APIError:
+      title: APIError
+      type: object
+      properties:
+        code:
+          type: string
+        error_description:
+          type: string
+        metadata:
+          type: string
+    RoomRequestResponse:
+      title: RoomRequestResponse
+      type: object
+      x-tags:
+        - rooms
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          maxLength: 50
+        occupancy:
+          type: number
+          minimum: 1
+          maximum: 6
+          multipleOf: 0
+        beds:
+          type: number
+          minimum: 1
+          maximum: 6
+        amount:
+          type: number
+          minimum: 0
+          maximum: 10000
+        hotelId:
+          type: string
+        roomNumber:
+          type: string
+      required:
+        - id
+        - type
+        - occupancy
+        - beds
+        - amount
+        - hotelId
+        - roomNumber
+    RoomListResponse:
+      title: RoomListResponse
+      x-tags:
+        - rooms
+      allOf:
+        - properties:
+            content:
+              type: array
+              items:
+                $ref: '#/components/schemas/RoomRequestResponse'
+        - properties:
+            pageable:
+              $ref: '#/components/schemas/Pageable'
+      type: object
+    ReservationRequestResponse:
+      title: ReservationRequestResponse
+      type: object
+      x-tags:
+        - reservation
+      properties:
+        hotelId:
+          type: string
+          maxLength: 50
+        hotelName:
+          type: string
+          maxLength: 50
+        checkInDate:
+          type: string
+          pattern: "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
+          description: 'Note: Regex is for ISO8601 date format only'
+        checkOutDate:
+          type: string
+          pattern: "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
+          description: 'Note: Regex is for ISO8601 date format only'
+        customer:
+          $ref: '#/components/schemas/CustomerDetails'
+        room:
+          $ref: '#/components/schemas/RoomRequestResponse'
+        totalAmount:
+          type: string
+      required:
+        - hotelId
+        - checkInDate
+        - checkOutDate
+        - customer
+        - room
+        - totalAmount
+    CustomerDetails:
+      title: CustomerDetails
+      type: object
+      x-tags:
+        - reservation
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+          maxLength: 50
+        phoneNumber:
+          type: string
+          minLength: 8
+          maxLength: 11
+      required:
+        - email
+        - phoneNumber
