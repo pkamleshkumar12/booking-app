@@ -25,6 +25,7 @@ paths:
             $ref: '#/components/schemas/Pageable'
           in: query
           name: pageable
+          description: ''
     post:
       summary: Add new hotel
       tags:
@@ -161,10 +162,15 @@ paths:
       description: Get all Rooms by HotelId
       parameters:
         - schema:
+            $ref: '#/components/schemas/Pageable'
+          in: query
+          name: pageable
+          description: ''
+        - schema:
             type: string
-            default: application/json
-          in: header
-          name: Content-type
+          in: query
+          name: hoteId
+          required: true
     post:
       summary: Add room to the Hotel by Hotel Id
       tags:
@@ -231,8 +237,8 @@ paths:
       description: Get Room by Room Id
       parameters:
         - schema:
-            type: string
             default: application/json
+            type: string
           in: header
           name: Content-type
     put:
@@ -444,16 +450,25 @@ components:
       title: RoomListResponse
       x-tags:
         - rooms
-      allOf:
-        - properties:
-            content:
-              type: array
-              items:
-                $ref: '#/components/schemas/RoomRequestResponse'
-        - properties:
-            pageable:
-              $ref: '#/components/schemas/Pageable'
       type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/HotelRequestResponse'
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        first: {}
+        last:
+          type: boolean
+        numberOfElement:
+          type: string
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
     ReservationRequestResponse:
       title: ReservationRequestResponse
       type: object
