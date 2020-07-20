@@ -401,14 +401,14 @@ components:
         unsorted:
           type: boolean
     APIError:
-      title: APIError
+      title: ApiError
       type: object
       properties:
-        code:
+        error:
           type: string
         error_description:
           type: string
-        metadata:
+        status:
           type: string
     RoomRequestResponse:
       title: RoomRequestResponse
@@ -455,7 +455,7 @@ components:
         content:
           type: array
           items:
-            $ref: '#/components/schemas/HotelRequestResponse'
+            $ref: '#/components/schemas/RoomRequestResponse'
         pageable:
           $ref: '#/components/schemas/Pageable'
         first: {}
@@ -494,6 +494,8 @@ components:
         room:
           $ref: '#/components/schemas/RoomRequestResponse'
         totalAmount:
+          type: string
+        id:
           type: string
       required:
         - hotelId
