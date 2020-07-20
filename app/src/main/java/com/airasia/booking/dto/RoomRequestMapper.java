@@ -2,8 +2,10 @@ package com.airasia.booking.dto;
 
 import com.airasia.booking.entities.Hotel;
 import com.airasia.booking.entities.Room;
+import com.airasia.booking.enums.RoomType;
 import com.airasia.booking.model.RoomRequestResponse;
 import com.airasia.booking.repositories.HotelRepository;
+import lombok.val;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +28,8 @@ public class RoomRequestMapper {
                     mapper.skip(Room::setId);
                     mapper.using(ctx -> getHotel((String) ctx.getSource()))
                             .map(RoomRequestResponse::getHotelId, Room::setHotel);
+                    mapper.using(ctx -> getRoomType((String) ctx.getSource()))
+                            .map(RoomRequestResponse::getType, Room::setRoomType);
                 });
 
     }
@@ -39,6 +43,9 @@ public class RoomRequestMapper {
                         MessageFormat.format("Invalid Hotel id: {0}", id)));
     }
 
+    public RoomType getRoomType(String roomType){
+        return RoomType.valueOf(roomType);
+    }
     private static boolean isInvalidId(String id) {
         if (id == null) {
             return true;
@@ -54,7 +61,13 @@ public class RoomRequestMapper {
     }
 
     public RoomRequestResponse convertToDto(Room room) {
-        return modelMapper.map(room, RoomRequestResponse.class);
+        val hotelId = room.getHotel().getId();
+        val roomType = room.getRoomType().toString();
+
+        val dto = modelMapper.map(room, RoomRequestResponse.class);
+        dto.setHotelId(hotelId);
+        dto.setType(roomType);
+        return dto;
     }
 
     public Room merge(RoomRequestResponse dto, Room entity) {

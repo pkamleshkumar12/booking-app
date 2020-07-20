@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Controller;
 import org.springframework.data.domain.Pageable;
+
 @Slf4j
-@Service
+@Controller
 public class RoomApiDelegateImpl implements RoomsApiDelegate {
 
     @Autowired
@@ -29,7 +29,7 @@ public class RoomApiDelegateImpl implements RoomsApiDelegate {
     private ModelMapper modelMapper;
 
     @Override
-    public ResponseEntity<RoomListResponse> getHotelsHotelIdRooms(String hotelId, Pageable pageable){
+    public ResponseEntity<RoomListResponse> getHotelsHotelIdRooms(String hotelId, Pageable pageable) {
 
         val rooms = roomRepository.findAllByHotelId(hotelId, pageable);
         Page<RoomRequestResponse> response = rooms.map(roomRequestMapper::convertToDto);
@@ -76,7 +76,7 @@ public class RoomApiDelegateImpl implements RoomsApiDelegate {
 
     @Override
     public ResponseEntity<Object> deleteHotelsHotelIdRoomsRoomId(String roomId,
-                                                               String contentType) {
+                                                                 String contentType) {
 
         return roomRepository.findById(roomId)
                 .map(room -> {

@@ -3,6 +3,7 @@ package com.airasia.booking.entities;
 import com.airasia.booking.enums.RoomType;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = { "hotel" })
+@Where(clause="deleted=0")
 public class Room  extends AuditEntity implements Serializable {
     private static final long serialVersionUID = -5447023441800227916L;
 
