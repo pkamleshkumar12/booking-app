@@ -66,3 +66,15 @@ Used `openapi-generator-maven-plugin` to generate code from a Maven build
 │           └── bookings.v1.yml
 └── pom.xml
  ```
+
+
+#### How to run 
+* Install [docker](https://docs.docker.com/docker-for-mac/install/) if you dont have one
+* Run following command
+```
+#Run docker compose
+ $ docker-compose up --build
+```
+#### Documentation
+Here is the link for the documentation
+[https://booking-app-interview.docs.stoplight.io/](https://booking-app-interview.docs.stoplight.io/)
