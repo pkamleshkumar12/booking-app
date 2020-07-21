@@ -72,7 +72,13 @@ Used `openapi-generator-maven-plugin` to generate code from a Maven build
 * Install [docker](https://docs.docker.com/docker-for-mac/install/) if you dont have one
 * Run following command
 ```
-#Run docker compose
+# Step 1: cd to /booking-app/specification
+$ mvn clean install  
+
+# Step 2: cd to /booking-app/app
+$ mvn clean package 
+
+# Step 3: Run docker compose
  $ docker-compose up --build
 ```
 #### Documentation
